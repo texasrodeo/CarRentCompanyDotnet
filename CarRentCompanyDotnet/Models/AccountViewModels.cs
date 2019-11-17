@@ -70,6 +70,16 @@ namespace CarRentCompanyDotnet.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Серия водительских прав")]
+        public string LicenseSeries { get; set; }
+
+        [Required]
+        [Display(Name = "Номер водительских прав")]
+        public string LicenseNumber { get; set; }
+
+
+
+        [Required]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
