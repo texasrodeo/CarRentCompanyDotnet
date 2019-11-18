@@ -9,7 +9,7 @@ using CarRentCompanyDotnet.Models;
 
 namespace CarRentCompanyDotnet.Controllers
 {
-    public class AppDbInitializer: DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    public class AppDbInitializer: DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
@@ -27,7 +27,7 @@ namespace CarRentCompanyDotnet.Controllers
 
             // создаем пользователей
             var admin = new ApplicationUser { Email = "kublenko_p_v@sc.vsu.ru", UserName = "kublenko_p_v@sc.vsu.ru" };
-            string password = "123456";
+            string password = "22p03v00K!";
             var result = userManager.Create(admin, password);
 
             // если создание пользователя прошло успешно
@@ -37,6 +37,9 @@ namespace CarRentCompanyDotnet.Controllers
                 userManager.AddToRole(admin.Id, role1.Name);
                 userManager.AddToRole(admin.Id, role2.Name);
             }
+            context.AutoPark.Add(new Car { Brand = "Volvo", Info = "Надежная машина 150 л.с", Price = 2200, Avaliability = true });
+            context.AutoPark.Add(new Car { Brand = "Lada", Info = "Бюджетная машина 90 л.с", Price = 1000, Avaliability = true });
+            context.AutoPark.Add(new Car { Brand = "Maybach", Info = "Машина класса люкс 600 л.с", Price = 10000, Avaliability = false });
 
             base.Seed(context);
         }

@@ -180,9 +180,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201911161548355_DataMigration.cs" />
-    <Compile Include="Migrations\201911161548355_DataMigration.Designer.cs">
-      <DependentUpon>201911161548355_DataMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201911181250067_Migrate.cs" />
+    <Compile Include="Migrations\201911181250067_Migrate.Designer.cs">
+      <DependentUpon>201911181250067_Migrate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -192,6 +192,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\AutoparkStore.mdf" />
+    <Content Include="App_Data\AutoparkStore_log.ldf">
+      <DependentUpon>AutoparkStore.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -247,9 +251,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Content Include="Views\Home\AddCar.cshtml" />
+    <Content Include="Views\Home\AlterCar.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\SendRequest.cshtml" />
+    <Content Include="Views\Home\ShowCars.cshtml" />
+    <Content Include="Views\Home\ShowContracts.cshtml" />
+    <Content Include="Views\Home\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -265,8 +273,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911161548355_DataMigration.resx">
-      <DependentUpon>201911161548355_DataMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911181250067_Migrate.resx">
+      <DependentUpon>201911181250067_Migrate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

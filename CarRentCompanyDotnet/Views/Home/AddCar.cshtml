@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddCar</title>
+</head>
+<body>
+    <div>
+        <h3>Форма добавления нового автомобиля в автопарк</h3>
+        <form method="post" action="">
+            <input type="hidden" value="true" name="Avaliability" />
+            <table>
+
+                <tr>
+                    <td><p>Введите бренд машины: </p></td>
+                    <td><input type="text" name="Brand" /> </td>
+                </tr>
+
+                <tr>
+                    <td><p>Введите информацию о машине: </p></td>
+                    <td>
+                        <input type="text" id="info" name="Info" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Введите стоимость аренды автомобиля: </p></td>
+                    <td>
+                        <input type="number" id="price" name="Price" />
+                    </td>
+                </tr>
+                <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+            </table>
+        </form>
+    </div>
+    <a href="/Home/Index">На главную</a>
+</body>
+</html>

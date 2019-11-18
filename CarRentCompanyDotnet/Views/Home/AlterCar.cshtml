@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AlterCar</title>
+</head>
+<body>
+    <div>
+        <h3>Форма редактирования автомобиля</h3>
+        <form method="post" action="">
+            
+            <table>
+
+                <tr>
+                    <td><p>Введите бренд машины: </p></td>
+                    <td><input type="text" name="Brand" value="@ViewBag.Car.Brand" /> </td>
+                </tr>
+
+                <tr>
+                    <td><p>Введите информацию о машине: </p></td>
+                    <td>
+                        <input type="text" id="info" name="Info" value="@ViewBag.Car.Info" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Введите стоимость аренды автомобиля: </p></td>
+                    <td>
+                        <input type="number" id="price" name="Price" value="@ViewBag.Car.Price" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Доступен ли автомобиль для аренды: </p></td>
+                    <td>
+                        @if (ViewBag.Car.Avaliability)
+                        {
+                            <a><input type="radio" name="Avaliability" value="true" checked="checked" />Да</a>
+                            <a><input type="radio" name="Avaliability" value="false"  />Нет</a>
+                        }
+                        else
+                        {
+                            <a><input type="radio" name="Avaliability" value="true"  />Да</a>
+                            <a><input type="radio" name="Avaliability" value="false" checked="checked" />Нет</a>
+                        }
+
+                    </td>
+                </tr>
+
+                <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+            </table>
+        </form>
+    </div>
+    <a href="/Home/Index">На главную</a>
+</body>
+</html>

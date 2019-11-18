@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace CarRentCompanyDotnet.Models
 
         public string Info { get; set; }
         public int Price { get; set; }
+        public bool Avaliability { get; set; }
     }
 
     public class Contract
@@ -39,6 +41,9 @@ namespace CarRentCompanyDotnet.Models
         public int ClientId { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
+        public bool IsApproved { get; set; }
+
+    
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -53,6 +58,31 @@ namespace CarRentCompanyDotnet.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+        public void removeCarById(int id)
+        {
+            Car c = AutoPark
+                .Where(o => o.Id == id)
+                   .FirstOrDefault();
+            AutoPark.Remove(c);
+        }
+
+        public void AlterCar(Car car)
+        {
+            Car c = AutoPark
+                .Where(o => o.Id == car.Id)
+                   .FirstOrDefault();
+            c.Info = car.Info;
+            c.Price = car.Price;
+            c.Brand = car.Brand;
+            c.Avaliability = car.Avaliability;
+        }
+
+        public Car GetCarById(int id)
+        {
+            return AutoPark
+                .Where(o => o.Id == id)
+                   .FirstOrDefault();
         }
     }
 }

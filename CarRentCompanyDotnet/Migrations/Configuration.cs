@@ -10,6 +10,7 @@ namespace CarRentCompanyDotnet.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+           // ContextKey = "CarRentCompanyDotnet.Models.IdentityModels.ApplicationDbContext";
         }
 
         protected override void Seed(CarRentCompanyDotnet.Models.ApplicationDbContext context)

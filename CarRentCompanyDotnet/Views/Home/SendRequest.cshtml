@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Покупка</title>
+</head>
+<body>
+    <div>
+        <h3>Форма оформления запроса на аренду</h3>
+        <form method="post" action="">
+            <input type="hidden" value="@ViewBag.CarId" name="CarId" />
+            <input type="hidden" value="false" name="IsApproved" />
+            <table>
+                <tr>
+                    <td><p>Введите свое имя: </p></td>
+                    <td><input type="text" required name="Person" /> </td>
+                </tr>
+
+                <tr>
+                    <td><p>Введите дату начала аренды: </p></td>
+                    <td>
+                        <input type="date" required id="dateStart" name="Start" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Введите дату конца аренды: </p></td>
+                    <td>
+                        <input  type="date" required id="dateEnd" name="End" />
+                    </td>
+                </tr>
+                <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+            </table>
+        </form>
+    </div>
+
+    <a href="/Home/Index">На главную</a>
+</body>
+</html>

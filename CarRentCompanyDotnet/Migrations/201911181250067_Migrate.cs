@@ -3,7 +3,7 @@ namespace CarRentCompanyDotnet.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class DataMigration : DbMigration
+    public partial class Migrate : DbMigration 
     {
         public override void Up()
         {
@@ -15,6 +15,7 @@ namespace CarRentCompanyDotnet.Migrations
                         Brand = c.String(),
                         Info = c.String(),
                         Price = c.Int(nullable: false),
+                        Avaliability = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -27,6 +28,7 @@ namespace CarRentCompanyDotnet.Migrations
                         ClientId = c.Int(nullable: false),
                         Start = c.DateTime(nullable: false),
                         End = c.DateTime(nullable: false),
+                        IsApproved = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -58,8 +60,8 @@ namespace CarRentCompanyDotnet.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        LicenseSeries = c.Int(nullable: false),
-                        LicenseNumber = c.Int(nullable: false),
+                        LicenseSeries = c.String(),
+                        LicenseNumber = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
