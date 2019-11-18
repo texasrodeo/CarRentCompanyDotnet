@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 using CarRentCompanyDotnet.Models;
 
 namespace CarRentCompanyDotnet.Controllers
@@ -15,19 +17,38 @@ namespace CarRentCompanyDotnet.Controllers
         {
             return View();
         }
-
+        
         public ActionResult ShowCars()
         {
-
-            IEnumerable<Car> autoPark = autoParkContext.AutoPark;
-            //ViewBag.Count = autoPark.Count();
-            ViewBag.Count = 3;
-            ViewBag.Cars = autoPark;
-
-            return View();
+            
+            ApplicationUserManager userManager = HttpContext.GetOwinContext()
+                                           .GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = userManager.FindByEmail(User.Identity.Name);
+            if (user != null)
+            {
+                IList<string> roles = new List<string>();
+                roles = userManager.GetRoles(user.Id);
+                if (roles.Contains("admin"))
+                    ViewBag.Role = "admin";
+                else
+                    ViewBag.Role = "user";
+            }
+            else
+            {
+                ViewBag.Role = "noname";
+            }
+            
+            
+                IEnumerable<Car> autoPark = autoParkContext.AutoPark;
+                ViewBag.Count = autoPark.Count();
+                ViewBag.Cars = autoPark;
+                
+                return View();
+            
         }
 
         [HttpGet]
+        [Authorize(Roles ="admin")]
         public ActionResult ShowContracts()
         {
             if (Request.Params["sort"] == "all")
@@ -75,6 +96,7 @@ namespace CarRentCompanyDotnet.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public ActionResult AddCar()
         {
             return View();
@@ -82,6 +104,7 @@ namespace CarRentCompanyDotnet.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public RedirectResult AddCar(Car car)
         {
             autoParkContext.AutoPark.Add(car);
@@ -90,6 +113,7 @@ namespace CarRentCompanyDotnet.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public ActionResult AlterCar(int id)
         {
             ViewBag.Car = autoParkContext.GetCarById(id);
@@ -97,6 +121,7 @@ namespace CarRentCompanyDotnet.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public RedirectResult AlterCar(Car car)
         {
             autoParkContext.AlterCar(car);
@@ -106,6 +131,7 @@ namespace CarRentCompanyDotnet.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public RedirectResult DeleteCar(int id)
         {
             autoParkContext.removeCarById(id);

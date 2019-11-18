@@ -14,49 +14,69 @@
     <div>
         <h1>Список машин в автопарке</h1>
 
+        @if (ViewBag.Role == "noname")
+        {
+            <h3>Вы не авторизировались. Войдите, чтобы иметь возможность отправлять запросы на аренду</h3>
+        }
         @if (ViewBag.Count != 0)
         {
             <table>
-            <tr>
-                <td><p>Брэнд</p></td>
-                <td><p>Информация</p></td>
-                <td><p>Цена аренды</p></td>
-                <td><p>Доступность</p></td>
-                <td></td>
-            </tr>
-            @foreach (var b in ViewBag.Cars)
-            {
-
-            <tr>
-                <td><p>@b.Brand</p></td>
-                <td><p>@b.Info</p></td>
-                <td><p>@b.Price</p></td>
-                @if (b.Avaliability)
+                <tr>
+                    <td><p>Брэнд</p></td>
+                    <td><p>Цена аренды</p></td>
+                    <td><p>Доступность</p></td>
+                    <td></td>
+                </tr>
+                @foreach (var b in ViewBag.Cars)
                 {
-                    <td><p>Машина доступна</p></td>
-                    <td><p><a href="/Home/SendRequest/@b.Id">Отправить запрос на аренду</a></p></td>
-                    <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
-                    <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
+
+                <tr>
+                    <td><p>@b.Brand</p></td>
+                    <td><p>@b.Price</p></td>
+                    @if (b.Avaliability)
+                    {
+                        <td><p>Машина доступна</p></td>
+                        if (ViewBag.Role == "user")
+                        {
+                            <td><p><a href="/Home/SendRequest/@b.Id">Отправить запрос на аренду</a></p></td>
+                        }
+                        
+
+                        <td><p><a href="/Home/ShowCarInfo/@b.Id">Подробнее</a></p></td>
+                        if (ViewBag.Role == "admin")
+                        {
+                            <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
+                            <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
+                        }
+
+                    }
+
+                    else
+                    {
+                        <td><p>Машина недоступна</p></td>
+                        <td><p><a href="/Home/ShowCarInfo/@b.Id">Подробнее</a></p></td>
+                        if (ViewBag.Role == "admin")
+                        {
+                            <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
+                            <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
+                        }
+                    }
+
+
+                </tr>
                 }
+            </table>
+        }
+        else
+        {
+            <h2>Здесь пока ничего нет</h2>
+        }
+        @if (ViewBag.Role == "admin")
+        {
+            <a href="/Home/AddCar/">Добавить автомобиль</a>
+        }
 
-                else
-                {
-                    <td><p>Машина недоступна</p></td>
-                    <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
-                    <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
-                }
-
-
-            </tr>
-            }
-        </table>
-         }
-         else{
-                <h2>Здесь пока ничего нет</h2>
-         }
-
-            <a href="/Home/AddCer/">Добавить автомобиль</a>
-            <a href="/Home/Index">На главную</a>
-        </div>
+        <a href="/Home/Index">На главную</a>
+    </div>
 </body>
 </html>
