@@ -48,6 +48,37 @@ namespace CarRentCompanyDotnet.Controllers
         }
 
         [HttpGet]
+        public ActionResult ShowCarInfo(int id)
+        {
+            ApplicationUserManager userManager = HttpContext.GetOwinContext()
+                                           .GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = userManager.FindByEmail(User.Identity.Name);
+            if (user != null)
+            {
+                IList<string> roles = new List<string>();
+                roles = userManager.GetRoles(user.Id);
+                if (roles.Contains("admin"))
+                    ViewBag.Role = "admin";
+                else
+                    ViewBag.Role = "user";
+            }
+            else
+            {
+                ViewBag.Role = "noname";
+            }
+
+          
+            Car car = autoParkContext.GetCarById(id);
+            ViewBag.Id = id;
+            ViewBag.Brand = car.Brand;
+            ViewBag.Info = car.Info;
+            ViewBag.Price = car.Price;
+           
+
+            return View();
+        }
+
+        [HttpGet]
         [Authorize(Roles ="admin")]
         public ActionResult ShowContracts()
         {
@@ -61,7 +92,7 @@ namespace CarRentCompanyDotnet.Controllers
             return View();
         }
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult SendRequest(int id)
         {

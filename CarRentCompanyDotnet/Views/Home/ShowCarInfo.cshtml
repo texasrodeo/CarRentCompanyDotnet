@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Информация о машине";
+}
+
+<h2>ShowCarInfo</h2>
+@if (ViewBag.Role == "noname")
+{
+    <h3>Вы не авторизировались. Войдите, чтобы иметь возможность отправлять запросы на аренду</h3>
+}
+<h3>@ViewBag.Brand</h3>
+<p>@ViewBag.Info</p>
+<br />
+Стоимость аренды машины на месяц: @ViewBag.Price
+<a href="/Home/SendRequest/@ViewBag.Id">Отправить запрос на аренду</a>
+<br />
+<a href="/Home/ShowCars">Назад</a>
