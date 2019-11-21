@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -15,6 +16,7 @@ namespace CarRentCompanyDotnet.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext autoParkContext = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -307,6 +309,15 @@ namespace CarRentCompanyDotnet.Controllers
         {
             // Запрос перенаправления к внешнему поставщику входа для связывания имени входа текущего пользователя
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
+        }
+
+        [Authorize(Roles ="user")]
+        [HttpGet]
+        public ActionResult ShowUserContracts(int id)
+        {
+            List<Contract> contactsForUser = autoParkContext.GetContractsForUser(id);
+            ViewBag.Contracts = contactsForUser;
+            return View();
         }
 
         //

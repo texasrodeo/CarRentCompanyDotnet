@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -83,6 +85,13 @@ namespace CarRentCompanyDotnet.Models
             return AutoPark
                 .Where(o => o.Id == id)
                    .FirstOrDefault();
+        }
+
+        public List<Contract> GetContractsForUser(int id)
+        {
+            return (from contract in this.Contracts
+                   where contract.ClientId == id
+                   select contract).ToList();
         }
     }
 }

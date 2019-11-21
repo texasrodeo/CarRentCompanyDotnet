@@ -259,6 +259,7 @@
     <Content Include="Views\Home\ShowContracts.cshtml" />
     <Content Include="Views\Home\Success.cshtml" />
     <Content Include="Views\Home\ShowCarInfo.cshtml" />
+    <Content Include="Views\Manage\ShowUserContracts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

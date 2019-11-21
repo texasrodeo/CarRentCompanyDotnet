@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "ShowUserContracts";
+}
+
+<h2>ShowUserContracts</h2>
+ @if (ViewBag.Count != 0)
+        {
+            <table>
+                <tr>
+                    <td><p>Автомобиль</p></td>
+                    <td><p>Цена аренды</p></td>
+                    <td><p>Дата начала аренды</p></td>
+                    <td><p>Дата Конца</p></td>
+                    <td><p>Статус</p></td>
+                    <td></td>
+                </tr>
+                @foreach (var b in ViewBag.Contracts)
+                {
+
+                <tr>
+                    <td><p><a href="/Home/ShowCarInfo/b.CarId">@b.Brand</a></p></td>
+                    <td><p>@b.Price</p></td>
+                    <td><p>@b.Start</p></td>
+                    <td><p>@b.End</p></td>
+                    <td><p>@b.IsApproved</p></td>
+                   
+
+                </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <h2>Здесь пока ничего нет</h2>
+        }
+      
+

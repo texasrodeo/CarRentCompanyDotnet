@@ -1,12 +1,27 @@
 ﻿@model CarRentCompanyDotnet.Models.IndexViewModel
+@using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Управление";
+    ViewBag.Title = "Личный кабинет";
 }
 
 <h2>@ViewBag.Title.</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
+    <h4>Данные пользователя</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Запросы на аренду:</dt>
+        <dd>
+
+
+            @Html.ActionLink("Показать список запросов на аренду", "ShowUserContracts", new {id = User.Identity.GetUserId() })
+
+
+
+        </dd>
+
+    </dl>
     <h4>Изменение параметров учетной записи</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -23,6 +38,6 @@
             }
             ]
         </dd>
-        
+
     </dl>
 </div>

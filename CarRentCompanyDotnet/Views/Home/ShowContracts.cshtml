@@ -18,18 +18,20 @@
             <tr>
                 <th>Id запроса</th>
                 <th>Id автомобиля</th>
+                <th>Id клиента</th>
                 <th>Дата начала аренды</th>
                 <th>Дата окончания аренды</th>
             </tr>
             @foreach (var c in ViewBag.Requests)
             {
 
-                <tr>
-                    <th>@c.Id</th>
-                    <th>@c.CarId</th>
-                    <th>@c.Start</th>
-                    <th>@c.End</th>
-                </tr>
+            <tr>
+                <th>@c.Id</th>
+                <th>@c.ClientId</th>
+                <th>@c.CarId</th>
+                <th>@c.Start</th>
+                <th>@c.End</th>
+            </tr>
             }
         </table>
     }

@@ -33,13 +33,13 @@
     <div class="form-group">
         @Html.LabelFor(m => m.LicenseSeries, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.LicenseSeries, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.LicenseSeries, new { @class = "form-control" , @placeholder = "Введите серию Ваших прав, 4 цифры"})
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.LicenseNumber, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.LicenseNumber, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.LicenseNumber, new { @class = "form-control", @placeholder = "Введите номер Ваших прав, 6 цифр" })
         </div>
     </div>
     <div class="form-group">
