@@ -7,13 +7,13 @@ namespace CarRentCompanyDotnet.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Migrate : IMigrationMetadata
+    public sealed partial class MyMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Migrate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MyMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201911181250067_Migrate"; }
+            get { return "201911231402392_MyMigration"; }
         }
         
         string IMigrationMetadata.Source

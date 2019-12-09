@@ -3,7 +3,7 @@ namespace CarRentCompanyDotnet.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Migrate : DbMigration 
+    public partial class MyMigration : DbMigration
     {
         public override void Up()
         {

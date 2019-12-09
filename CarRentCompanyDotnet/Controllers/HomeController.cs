@@ -47,6 +47,8 @@ namespace CarRentCompanyDotnet.Controllers
             
         }
 
+        
+
         [HttpGet]
         public ActionResult ShowCarInfo(int id)
         {
@@ -92,6 +94,21 @@ namespace CarRentCompanyDotnet.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Authorize(Roles = "user")]
+        public ActionResult ShowUserContracts(int id)
+        {
+            if (Request.Params["sort"] == "all")
+                ViewBag.Requests = getAllContractsForUser(autoParkContext.Contracts, id);
+            else if (Request.Params["sort"] == "requests")
+                ViewBag.Requests = getRequestsForUser(autoParkContext.Contracts, id);
+            else
+                ViewBag.Requests = getApprovedContractsForUser(autoParkContext.Contracts, id);
+            ViewBag.Count = ViewBag.Requests.Count;
+            return View();
+        }
+
+
         [Authorize]
         [HttpGet]
         public ActionResult SendRequest(int id)
@@ -108,6 +125,8 @@ namespace CarRentCompanyDotnet.Controllers
 
             if (DateTime.Compare(contract.Start, contract.End) <= 0)
             {
+                
+
                 // добавляем информацию о покупке в базу данных
                 autoParkContext.Contracts.Add(contract);
                 // сохраняем в бд все изменения
@@ -208,6 +227,38 @@ namespace CarRentCompanyDotnet.Controllers
         private IEnumerable<Contract> getAllContracts(IEnumerable<Contract> contracts)
         {
             return contracts.ToList();
+        }
+
+        private IEnumerable<Contract> getRequestsForUser(IEnumerable<Contract> contracts, int id)
+        {
+            List<Contract> result = new List<Contract>();
+            foreach (Contract c in contracts)
+            {
+                if (!c.IsApproved && c.ClientId == id)
+                    result.Add(c);
+            }
+            return result;
+        }
+        private IEnumerable<Contract> getApprovedContractsForUser(IEnumerable<Contract> contracts, int id)
+        {
+            List<Contract> result = new List<Contract>();
+            foreach (Contract c in contracts)
+            {
+                if (c.IsApproved && c.ClientId == id)
+                    result.Add(c);
+            }
+            return result;
+        }
+
+        private IEnumerable<Contract> getAllContractsForUser(IEnumerable<Contract> contracts, int id)
+        {
+            List<Contract> result = new List<Contract>();
+            foreach (Contract c in contracts)
+            {
+                if (c.ClientId == id)
+                    result.Add(c);
+            }
+            return result;
         }
 
     }

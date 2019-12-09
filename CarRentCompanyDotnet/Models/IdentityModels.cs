@@ -50,10 +50,13 @@ namespace CarRentCompanyDotnet.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+       
+
         public DbSet<Car> AutoPark { get; set; }
         public DbSet<Contract> Contracts { get; set; }
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("ApplicationDbContext", throwIfV1Schema: false)
         {
         }
 
