@@ -184,6 +184,10 @@
     <Compile Include="Migrations\201911231402392_MyMigration.Designer.cs">
       <DependentUpon>201911231402392_MyMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912091750116_MyMigration3.cs" />
+    <Compile Include="Migrations\201912091750116_MyMigration3.Designer.cs">
+      <DependentUpon>201912091750116_MyMigration3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -260,6 +264,7 @@
     <Content Include="Views\Home\Success.cshtml" />
     <Content Include="Views\Home\ShowCarInfo.cshtml" />
     <Content Include="Views\Manage\ShowUserContracts.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -277,6 +282,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201911231402392_MyMigration.resx">
       <DependentUpon>201911231402392_MyMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912091750116_MyMigration3.resx">
+      <DependentUpon>201912091750116_MyMigration3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

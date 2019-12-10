@@ -40,7 +40,7 @@ namespace CarRentCompanyDotnet.Models
     {
         public int Id { get; set; }
         public int CarId { get; set; }
-        public int ClientId { get; set; }
+        public string ClientId { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public bool IsApproved { get; set; }
@@ -90,7 +90,7 @@ namespace CarRentCompanyDotnet.Models
                    .FirstOrDefault();
         }
 
-        public List<Contract> GetContractsForUser(int id)
+        public List<Contract> GetContractsForUser(string id)
         {
             return (from contract in this.Contracts
                    where contract.ClientId == id

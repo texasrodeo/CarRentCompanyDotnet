@@ -344,7 +344,7 @@ namespace CarRentCompanyDotnet.Controllers
 
         [Authorize(Roles ="user")]
         [HttpGet]
-        public ActionResult ShowUserContracts(int id)
+        public ActionResult ShowUserContracts(string id)
         {
             List<Contract> contactsForUser = autoParkContext.GetContractsForUser(id);
             ViewBag.Count = contactsForUser.Count;

@@ -7,17 +7,37 @@
 
 <html>
 <head>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     <meta name="viewport" content="width=device-width" />
-    <title>Покупка</title>
+    <title>Оформление аренды</title>
 </head>
 <body>
     <div>
         <h3>Форма оформления запроса на аренду</h3>
         <form method="post" action="">
             <input type="hidden" value="@ViewBag.CarId" name="CarId" />
+            <input type="hidden" value="@ViewBag.UserId" name="ClientId" />
+            <input type="hidden" value="false" name="IsApproved" />
+            <div class="form-group">
+
+                <label for="dateStart">Введите дату начала аренды</label>
+                <input type="date" required id="dateStart" name="Start" />
+               
+            </div>
+            <div class="form-group">
+                <label for="dateEnd">Введите дату начала аренды</label>
+                <input type="date" required id="dateEnd" name="End" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        @*<form method="post" action="">
+            <input type="hidden" value="@ViewBag.CarId" name="CarId" />
+            <input type="hidden" value="@ViewBag.UserId" name="ClientId" />
             <input type="hidden" value="false" name="IsApproved" />
             <table>
-              
+
                 <tr>
                     <td><p>Введите дату начала аренды: </p></td>
                     <td>
@@ -27,14 +47,14 @@
                 <tr>
                     <td><p>Введите дату конца аренды: </p></td>
                     <td>
-                        <input  type="date" required id="dateEnd" name="End" />
+                        <input type="date" required id="dateEnd" name="End" />
                     </td>
                 </tr>
                 <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
             </table>
-        </form>
+        </form>*@
     </div>
-
-    <a href="/Home/Index">На главную</a>
+    <br>
+    <a class="btn btn-primary" href="/Home/ShowCars" role="button">Назад</a>
 </body>
 </html>

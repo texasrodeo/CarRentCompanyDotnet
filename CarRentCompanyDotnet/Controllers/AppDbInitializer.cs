@@ -9,7 +9,7 @@ using CarRentCompanyDotnet.Models;
 
 namespace CarRentCompanyDotnet.Controllers
 {
-    public class AppDbInitializer: DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    public class AppDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {

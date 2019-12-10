@@ -96,7 +96,7 @@ namespace CarRentCompanyDotnet.Controllers
 
         [HttpGet]
         [Authorize(Roles = "user")]
-        public ActionResult ShowUserContracts(int id)
+        public ActionResult ShowUserContracts(string id)
         {
             if (Request.Params["sort"] == "all")
                 ViewBag.Requests = getAllContractsForUser(autoParkContext.Contracts, id);
@@ -105,7 +105,15 @@ namespace CarRentCompanyDotnet.Controllers
             else
                 ViewBag.Requests = getApprovedContractsForUser(autoParkContext.Contracts, id);
             ViewBag.Count = ViewBag.Requests.Count;
-            return View();
+            return View("ShowContracts");
+        }
+
+        public ActionResult Details(int id)
+        {
+            Car c = autoParkContext.AutoPark.FirstOrDefault(com => com.Id == id);
+            if (c != null)
+                return PartialView(c);
+            return HttpNotFound();
         }
 
 
@@ -113,7 +121,11 @@ namespace CarRentCompanyDotnet.Controllers
         [HttpGet]
         public ActionResult SendRequest(int id)
         {
+            ApplicationUserManager userManager = HttpContext.GetOwinContext()
+                                          .GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = userManager.FindByEmail(User.Identity.Name);
             ViewBag.CarId = id;
+            ViewBag.UserId = user.Id;
             return View();
         }
 
@@ -229,7 +241,7 @@ namespace CarRentCompanyDotnet.Controllers
             return contracts.ToList();
         }
 
-        private IEnumerable<Contract> getRequestsForUser(IEnumerable<Contract> contracts, int id)
+        private IEnumerable<Contract> getRequestsForUser(IEnumerable<Contract> contracts, string id)
         {
             List<Contract> result = new List<Contract>();
             foreach (Contract c in contracts)
@@ -239,7 +251,7 @@ namespace CarRentCompanyDotnet.Controllers
             }
             return result;
         }
-        private IEnumerable<Contract> getApprovedContractsForUser(IEnumerable<Contract> contracts, int id)
+        private IEnumerable<Contract> getApprovedContractsForUser(IEnumerable<Contract> contracts, string id)
         {
             List<Contract> result = new List<Contract>();
             foreach (Contract c in contracts)
@@ -250,7 +262,7 @@ namespace CarRentCompanyDotnet.Controllers
             return result;
         }
 
-        private IEnumerable<Contract> getAllContractsForUser(IEnumerable<Contract> contracts, int id)
+        private IEnumerable<Contract> getAllContractsForUser(IEnumerable<Contract> contracts, string id)
         {
             List<Contract> result = new List<Contract>();
             foreach (Contract c in contracts)
