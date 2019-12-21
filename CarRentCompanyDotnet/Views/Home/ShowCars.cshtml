@@ -55,57 +55,64 @@
                             @foreach (var b in ViewBag.Cars)
                             {
 
-                                <tr>
-                                    <td><p>@b.Brand</p></td>
-                                    <td><p>@b.Price</p></td>
-                                    @if (b.Avaliability)
-                                    {
-                                        <td><p>Машина доступна</p></td>
-                                        if (ViewBag.Role == "user")
-                                        {
-                                            <td><p><a href="/Home/SendRequest/@b.Id">Отправить запрос на аренду</a></p></td>
-                                            <td>
-                                                <p>
-                                                    @Html.ActionLink("Подробнее", "Details",
-                                                     new { id = b.Id }, new { @class = "carItem" })
-                                                </p>
-                                            </td>
-                                        }
+                        <tr>
+                            <td><p>@b.Brand</p></td>
+                            <td><p>@b.Price</p></td>
+                            @if (b.Avaliability)
+                            {
+                                <td><p>Машина доступна</p></td>
+                                if (ViewBag.Role != "admin")
+                                {
+                                    <td><p></p></td>
+                                    <td>
+                                        <p>
+                                            @Html.ActionLink("Подробнее", "Details",
+                                             new { id = b.Id }, new { @class = "carItem" })
+                                        </p>
+                                    </td>
+                                }
+                                if (ViewBag.Role == "user")
+                                {
+                                    <td><p><a href="/Home/SendRequest/@b.Id">Отправить запрос на аренду</a></p></td>
+
+
+                                }
 
 
 
 
 
-                                        if (ViewBag.Role == "admin")
-                                        {
-                                            <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
-                                            <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
-                                        }
 
-                                    }
+                                if (ViewBag.Role == "admin")
+                                {
+                                    <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
+                                    <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
+                                }
 
-                                    else
-                                    {
-                                        <td><p>Машина недоступна</p></td>
-                                        if (ViewBag.Role == "user")
-                                        {
+                            }
 
-                                            <td>
-                                                <p>
-                                                    @Html.ActionLink("Подробнее", "Details",
-                                                     new { id = b.Id }, new { @class = "carItem" })
-                                                </p>
-                                            </td>
-                                        }
-                                        if (ViewBag.Role == "admin")
-                                        {
-                                            <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
-                                            <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
-                                        }
-                                    }
+                            else
+                            {
+                                <td><p>Машина недоступна</p></td>
+                                if (ViewBag.Role != "admin")
+                                {
+                                    <td><p></p></td>
+                                    <td>
+                                        <p>
+                                            @Html.ActionLink("Подробнее", "Details",
+                                             new { id = b.Id }, new { @class = "carItem" })
+                                        </p>
+                                    </td>
+                                }
+                                if (ViewBag.Role == "admin")
+                                {
+                                    <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
+                                    <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
+                                }
+                            }
 
 
-                                </tr>
+                        </tr>
                             }
                         </tbody>
                     </table>

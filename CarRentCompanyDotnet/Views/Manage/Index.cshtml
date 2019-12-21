@@ -8,7 +8,14 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>Данные пользователя</h4>
+    @if (ViewBag.Role == "admin")
+    {
+        <h4>Личный кабинет администратора</h4>
+    }
+    else
+    {
+        <h4>Данные пользователя</h4>
+    }
     <hr />
     <dl class="dl-horizontal">
         <dt>@ViewBag.Function</dt>
@@ -21,9 +28,9 @@
             else if (ViewBag.Role == "user")
             {
                 @*@Html.ActionLink("Показать Ваш список запросов на аренду", "ShowUserContracts", "Home", new
-                {
-                    id = @ViewBag.Id
-                });*@
+                    {
+                        id = @ViewBag.Id
+                    });*@
                 <a href="/Home/ShowUserContracts/@ViewBag.Id">Показать</a>
             }
 

@@ -5,7 +5,7 @@
 
     <div class="modal-content">
         <div class="modal-header">
-            <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+            
             <h4>Информация об автомобиле</h4>
         </div>
         <div class="modal-body">
@@ -25,9 +25,13 @@
         </div>
         <div class="modal-footer">
             <a class="btn btn-primary" href="/Home/ShowCars" role="button">Назад</a>
-            <a class="btn btn-primary" href="/Home/SendRequest/@Model.Id" role="button">Отправить запрос на аренду</a>
+            @if (Model.Avaliability)
+            {
+                <a class="btn btn-primary" href="/Home/SendRequest/@Model.Id" role="button">Отправить запрос на аренду</a>
+            }
+
             @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
-            <button type="button" class="btn btn-primary">Отправить запрос на аренду</button>*@
+        <button type="button" class="btn btn-primary">Отправить запрос на аренду</button>*@
         </div>
     </div>
 @Scripts.Render("~/bundles/jquery")

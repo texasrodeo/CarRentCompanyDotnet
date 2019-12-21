@@ -8,11 +8,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     <title>Успешно</title>
 </head>
 <body>
     <h1>Успешное выполнение операции!</h1>
-    <a href="/Home/Index">На главную</a>
+    <br />
+    <a class="btn btn-primary" href="/Home/Index/" role="button">На главную</a>
     
 </body>
 </html>

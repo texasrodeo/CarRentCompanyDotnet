@@ -91,7 +91,24 @@ namespace CarRentCompanyDotnet.Controllers
             else
                 ViewBag.Requests = getApprovedContracts(autoParkContext.Contracts);
             ViewBag.Count = ViewBag.Requests.Count;
+            ViewBag.Role = "admin";
             return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles="admin")]
+        public ActionResult ApproveContract(int id)
+        {
+            autoParkContext.ApproveContractById(id);
+            return View("Success");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public ActionResult RefuseContract(int id)
+        {
+            autoParkContext.RefuseContractById(id);
+            return View("Success");
         }
 
         [HttpGet]
@@ -105,9 +122,11 @@ namespace CarRentCompanyDotnet.Controllers
             else
                 ViewBag.Requests = getApprovedContractsForUser(autoParkContext.Contracts, id);
             ViewBag.Count = ViewBag.Requests.Count;
+            ViewBag.Role = "user";
             return View("ShowContracts");
         }
 
+        [Authorize(Roles = "user")]
         public ActionResult Details(int id)
         {
             Car c = autoParkContext.AutoPark.FirstOrDefault(com => com.Id == id);
@@ -271,6 +290,16 @@ namespace CarRentCompanyDotnet.Controllers
                     result.Add(c);
             }
             return result;
+        }
+
+        private void ApproveContract(Contract contract)
+        {
+            contract.IsApproved = true;
+        }
+
+        private void RefuseContract(Contract contract)
+        {
+            contract.IsApproved = false;
         }
 
     }

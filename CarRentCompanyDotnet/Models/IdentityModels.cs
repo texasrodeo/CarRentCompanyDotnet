@@ -96,5 +96,22 @@ namespace CarRentCompanyDotnet.Models
                    where contract.ClientId == id
                    select contract).ToList();
         }
+
+        public Contract GetContractById(int id)
+        {
+            return Contracts.Where(o => o.Id == id).FirstOrDefault();
+        }
+
+        public void ApproveContractById(int id)
+        {
+            Contract contract = Contracts.Where(o => o.Id == id).FirstOrDefault();
+            contract.IsApproved = true;
+        }
+
+        public void RefuseContractById(int id)
+        {
+            Contract contract = Contracts.Where(o => o.Id == id).FirstOrDefault();
+            contract.IsApproved = false;
+        }
     }
 }
