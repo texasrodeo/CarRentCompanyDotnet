@@ -45,6 +45,8 @@ namespace CarRentCompanyDotnet.Models
         public DateTime End { get; set; }
         public bool IsApproved { get; set; }
 
+       
+
     
     }
 
@@ -104,8 +106,9 @@ namespace CarRentCompanyDotnet.Models
 
         public void ApproveContractById(int id)
         {
-            Contract contract = Contracts.Where(o => o.Id == id).FirstOrDefault();
-            contract.IsApproved = true;
+            
+            Contract c = Contracts.Where(o => o.Id == id).FirstOrDefault();
+            c.IsApproved = true;
         }
 
         public void RefuseContractById(int id)

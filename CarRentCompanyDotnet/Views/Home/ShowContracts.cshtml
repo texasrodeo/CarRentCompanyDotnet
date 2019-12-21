@@ -54,11 +54,26 @@
                         <th>@c.CarId</th>
                         <th>@c.Start</th>
                         <th>@c.End</th>
-                        <th>@c.IsApproved</th>
+                        @if (c.IsApproved)
+                        {
+                            <th>Подтвержден</th>
+                        }
+                        else
+                        {
+                            <th>Не подтвержден</th>
+                        }
                         @if (ViewBag.Role == "admin")
                         {
-                            <th><a class="btn btn-primary" href="/Home/ApproveContract/@c.Id" role="button">Подтвердить</a></th>
-                            <th><a class="btn btn-primary" href="/Home/RefuseContract@c.Id" role="button">Отклонить</a></th>
+                            if (c.IsApproved)
+                            {
+                                <th><a class="btn btn-primary" href="/Home/RefuseContract/@c.Id" role="button">Отклонить</a></th>
+                            }
+                            else
+                            {
+                                <th><a class="btn btn-primary" href="/Home/ApproveContract/@c.Id" role="button">Подтвердить</a></th>
+                            }
+
+
                         }
                     </tr>
                         }

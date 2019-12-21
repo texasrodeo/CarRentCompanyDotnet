@@ -92,6 +92,7 @@ namespace CarRentCompanyDotnet.Controllers
                 ViewBag.Requests = getApprovedContracts(autoParkContext.Contracts);
             ViewBag.Count = ViewBag.Requests.Count;
             ViewBag.Role = "admin";
+            
             return View();
         }
 
@@ -100,6 +101,9 @@ namespace CarRentCompanyDotnet.Controllers
         public ActionResult ApproveContract(int id)
         {
             autoParkContext.ApproveContractById(id);
+            autoParkContext.SaveChanges();
+            ViewBag.Role = "admin";
+            ViewBag.Url = "/Home/ShowContracts";
             return View("Success");
         }
 
@@ -108,6 +112,9 @@ namespace CarRentCompanyDotnet.Controllers
         public ActionResult RefuseContract(int id)
         {
             autoParkContext.RefuseContractById(id);
+            autoParkContext.SaveChanges();
+            ViewBag.Role = "admin";
+            ViewBag.Url = "/Home/ShowContracts";
             return View("Success");
         }
 
@@ -162,6 +169,7 @@ namespace CarRentCompanyDotnet.Controllers
                 autoParkContext.Contracts.Add(contract);
                 // сохраняем в бд все изменения
                 autoParkContext.SaveChanges();
+                ViewBag.Url = "/Home/Index";
                 return View("Success");
             }
             else
