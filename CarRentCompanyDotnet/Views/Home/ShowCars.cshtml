@@ -8,11 +8,33 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     <title>Автопарк</title>
 </head>
 <body>
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
+    </div>
     <div>
         <h1>Список машин в автопарке</h1>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Сайт компании по аренде автомобилей", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
 
         @if (ViewBag.Role == "noname")
         {
@@ -20,51 +42,78 @@
         }
         @if (ViewBag.Count != 0)
         {
-            <table>
-                <tr>
-                    <td><p>Брэнд</p></td>
-                    <td><p>Цена аренды</p></td>
-                    <td><p>Доступность</p></td>
-                    <td></td>
-                </tr>
-                @foreach (var b in ViewBag.Cars)
-                {
+            <div class="row">
+                <div class="col-md-4">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td><p>Марка</p></td>
+                                <td><p>Цена аренды</p></td>
+                                <td><p>Доступность</p></td>
+                                <td></td>
+                            </tr>
+                            @foreach (var b in ViewBag.Cars)
+                            {
 
-                <tr>
-                    <td><p>@b.Brand</p></td>
-                    <td><p>@b.Price</p></td>
-                    @if (b.Avaliability)
-                    {
-                        <td><p>Машина доступна</p></td>
-                        
-                            <td><p><a href="/Home/SendRequest/@b.Id">Отправить запрос на аренду</a></p></td>
-                        
-                        
-
-                        <td><p><a href="/Home/ShowCarInfo/@b.Id">Подробнее</a></p></td>
-                        if (ViewBag.Role == "admin")
-                        {
-                            <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
-                            <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
-                        }
-
-                    }
-
-                    else
-                    {
-                        <td><p>Машина недоступна</p></td>
-                        <td><p><a href="/Home/ShowCarInfo/@b.Id">Подробнее</a></p></td>
-                        if (ViewBag.Role == "admin")
-                        {
-                            <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
-                            <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
-                        }
-                    }
+                                <tr>
+                                    <td><p>@b.Brand</p></td>
+                                    <td><p>@b.Price</p></td>
+                                    @if (b.Avaliability)
+                                    {
+                                        <td><p>Машина доступна</p></td>
+                                        if (ViewBag.Role == "user")
+                                        {
+                                            <td><p><a href="/Home/SendRequest/@b.Id">Отправить запрос на аренду</a></p></td>
+                                            <td>
+                                                <p>
+                                                    @Html.ActionLink("Подробнее", "Details",
+                                                     new { id = b.Id }, new { @class = "carItem" })
+                                                </p>
+                                            </td>
+                                        }
 
 
-                </tr>
-                }
-            </table>
+
+
+
+                                        if (ViewBag.Role == "admin")
+                                        {
+                                            <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
+                                            <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
+                                        }
+
+                                    }
+
+                                    else
+                                    {
+                                        <td><p>Машина недоступна</p></td>
+                                        if (ViewBag.Role == "user")
+                                        {
+
+                                            <td>
+                                                <p>
+                                                    @Html.ActionLink("Подробнее", "Details",
+                                                     new { id = b.Id }, new { @class = "carItem" })
+                                                </p>
+                                            </td>
+                                        }
+                                        if (ViewBag.Role == "admin")
+                                        {
+                                            <td><p><a href="/Home/DeleteCar/@b.Id">Удалить автомобиль</a></p></td>
+                                            <td><p><a href="/Home/AlterCar/@b.Id">Редактировать информацию об автомобиле</a></p></td>
+                                        }
+                                    }
+
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @*<table>
+
+            </table>*@
         }
         else
         {
@@ -72,10 +121,34 @@
         }
         @if (ViewBag.Role == "admin")
         {
-            <a href="/Home/AddCar/">Добавить автомобиль</a>
+            <a class="btn btn-primary" href="/Home/AddCar/" role="button">Добавить автомобиль</a>
+            <br />
+        }
+        <br />
+        <a class="btn btn-primary" href="/Home/Index/" role="button">Назад</a>
+
+    </div>
+
+    @section scripts
+    {
+        <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+           $(".carItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+        </script>
         }
 
-        <a href="/Home/Index">На главную</a>
-    </div>
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    
+    </body>
 </html>

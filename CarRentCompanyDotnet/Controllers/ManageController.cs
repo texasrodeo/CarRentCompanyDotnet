@@ -66,6 +66,37 @@ namespace CarRentCompanyDotnet.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+
+            var currentUser = UserManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+            ApplicationUserManager userManager = HttpContext.GetOwinContext()
+                                          .GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = userManager.FindByEmail(User.Identity.Name);
+            if (user != null)
+            {
+                IList<string> roles = new List<string>();
+                roles = userManager.GetRoles(user.Id);
+                if (roles.Contains("admin"))
+                {
+                    ViewBag.Role = "admin";
+                    ViewBag.Function = "Показать список всех запросов на аренду";
+                }
+
+                else
+                {
+                    ViewBag.Role = "user";
+                    ViewBag.Function = "Показать список Ваших запросов на аренду";
+                }
+                   
+            }
+            else
+            {
+                ViewBag.Role = "noname";
+            }
+
+            var id = currentUser.Id;
+            ViewBag.Id = id;
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -313,9 +344,10 @@ namespace CarRentCompanyDotnet.Controllers
 
         [Authorize(Roles ="user")]
         [HttpGet]
-        public ActionResult ShowUserContracts(int id)
+        public ActionResult ShowUserContracts(string id)
         {
             List<Contract> contactsForUser = autoParkContext.GetContractsForUser(id);
+            ViewBag.Count = contactsForUser.Count;
             ViewBag.Contracts = contactsForUser;
             return View();
         }

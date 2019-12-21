@@ -70,6 +70,18 @@ namespace CarRentCompanyDotnet.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Ваше имя")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Ваша фамилия")]
+        public string Surname { get; set; }
+
+        [Required]
+        [Display(Name = "Ваше отчество")]
+        public string SecondName { get; set; }
+
+        [Required]
         [Display(Name = "Серия водительских прав")]
         public string LicenseSeries { get; set; }
 
